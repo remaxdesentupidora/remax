@@ -1,0 +1,50 @@
+[
+	{
+		"id": "registro",
+		"nome": "Registro",
+		"uf": "SP",
+		"sede": true
+	},
+	{
+		"id": "cajati",
+		"nome": "Cajati",
+		"uf": "SP",
+		"sede": false
+	},
+	{
+		"id": "jacupiranga",
+		"nome": "Jacupiranga",
+		"uf": "SP",
+		"sede": false
+	},
+	{
+		"id": "miracatu",
+		"nome": "Miracatu",
+		"uf": "SP",
+		"sede": false
+	},
+	{
+		"id": "juquia",
+		"nome": "Juquiá",
+		"uf": "SP",
+		"sede": false
+	},
+	{
+		"id": "ilha-comprida",
+		"nome": "Ilha Comprida",
+		"uf": "SP",
+		"sede": false
+	},
+	{
+		"id": "iguape",
+		"nome": "Iguape",
+		"uf": "SP",
+		"sede": false
+	},
+	{
+		"id": "cananeia",
+		"nome": "Cananéia",
+		"uf": "SP",
+		"sede": false
+	}
+]

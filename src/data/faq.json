@@ -1,0 +1,32 @@
+[
+	{
+		"id": "taxa-deslocamento",
+		"pergunta": "Vocês cobram taxa de deslocamento?",
+		"resposta": "Não. Do momento em que nossos técnicos saem até chegarem ao local, não há nenhum custo adicional.",
+		"ordem": 1
+	},
+	{
+		"id": "orcamento-gratis",
+		"pergunta": "O orçamento é grátis?",
+		"resposta": "Sim, mesmo quando é preciso ir até o local. O valor é informado após a avaliação e o serviço só é executado com a sua aprovação.",
+		"ordem": 2
+	},
+	{
+		"id": "atendimento-24h",
+		"pergunta": "Vocês atendem de madrugada, fins de semana e feriados?",
+		"resposta": "Sim. Estamos de plantão 24 horas, inclusive fins de semana e feriados.",
+		"ordem": 3
+	},
+	{
+		"id": "cidades-atendidas",
+		"pergunta": "Quais cidades vocês atendem?",
+		"resposta": "Registro e região do Vale do Ribeira: Cajati, Jacupiranga, Miracatu, Juquiá, Ilha Comprida, Iguape e Cananéia.",
+		"ordem": 4
+	},
+	{
+		"id": "desentupimento-esgoto",
+		"pergunta": "Como é feito o desentupimento de esgoto?",
+		"resposta": "Utilizamos hidrojateamento, que desobstrui e limpa a tubulação de forma rápida e eficaz.",
+		"ordem": 5
+	}
+]

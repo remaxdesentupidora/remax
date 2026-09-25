@@ -1,0 +1,102 @@
+---
+interface Props {
+	/** Visual: com ícones (home/sobre) ou faixa accent (serviços) */
+	variant?: 'icons' | 'accent';
+	class?: string;
+}
+
+const { variant = 'icons', class: className = '' } = Astro.props;
+
+const diferenciais = [
+	{
+		titulo: 'Atendimento 24 horas',
+		texto: 'Plantão 24 horas, inclusive fins de semana e feriados.',
+		icon: 'clock' as const,
+	},
+	{
+		titulo: 'Orçamento grátis',
+		texto: 'O orçamento é gratuito, mesmo quando precisamos ir até o local.',
+		icon: 'check' as const,
+	},
+	{
+		titulo: 'Equipamentos modernos',
+		texto: 'Desentupimento imediato, limpo e rigoroso, com ferramentas modernas.',
+		icon: 'tool' as const,
+	},
+];
+---
+
+<ul
+	class:list={[
+		'grid list-none gap-6 p-0 sm:grid-cols-3',
+		className,
+	]}
+>
+	{
+		diferenciais.map((item) => (
+			<li
+				class:list={[
+					'p-5 shadow-[var(--shadow-soft)]',
+					variant === 'accent'
+						? 'border-t-4 border-accent bg-bg'
+						: 'bg-slate-50',
+				]}
+			>
+				{variant === 'icons' && (
+					<div
+						class="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-md bg-primary text-white"
+						aria-hidden="true"
+					>
+						{item.icon === 'clock' && (
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								class="h-6 w-6"
+							>
+								<circle cx="12" cy="12" r="9" />
+								<path d="M12 7v5l3 2" stroke-linecap="round" />
+							</svg>
+						)}
+						{item.icon === 'check' && (
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								class="h-6 w-6"
+							>
+								<path
+									d="M5 13l4 4L19 7"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						)}
+						{item.icon === 'tool' && (
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								class="h-6 w-6"
+							>
+								<path
+									d="M14.7 6.3a4 4 0 01.6 5.3L9 16.6l-3.6.7.7-3.6 6.3-6.3a4 4 0 015.3.6z"
+									stroke-linejoin="round"
+								/>
+								<path d="M12 8l4 4" stroke-linecap="round" />
+							</svg>
+						)}
+					</div>
+				)}
+				<h3 class="text-slate-900">{item.titulo}</h3>
+				<p class="mt-2 text-slate-700">{item.texto}</p>
+			</li>
+		))
+	}
+</ul>
