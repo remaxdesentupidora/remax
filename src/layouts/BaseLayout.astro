@@ -1,0 +1,159 @@
+---
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import { site } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import fontBoldUrl from '@fontsource/plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff2?url';
+
+interface Props {
+	title: string;
+	description: string;
+	canonical?: string;
+	ogImage?: string;
+	noindex?: boolean;
+	/** Usa o title exatamente como passado (sem sufixo da marca) */
+	exactTitle?: boolean;
+	/** Substitui areaServed do LocalBusiness/Plumber */
+	areaServed?: Record<string, unknown>[];
+	/** JSON-LD adicional (ex.: FAQPage), além do LocalBusiness */
+	jsonLdExtra?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+	title,
+	description,
+	canonical,
+	ogImage = '/og-default.jpg',
+	noindex = false,
+	exactTitle = false,
+	areaServed,
+	jsonLdExtra,
+} = Astro.props;
+
+const extraJsonLdList = jsonLdExtra
+	? Array.isArray(jsonLdExtra)
+		? jsonLdExtra
+		: [jsonLdExtra]
+	: [];
+
+const cidades = (await getCollection('cidades')).sort((a, b) => {
+	if (a.data.sede !== b.data.sede) return a.data.sede ? -1 : 1;
+	return a.data.nome.localeCompare(b.data.nome, 'pt-BR');
+});
+
+const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? site.url;
+const pathname = Astro.url.pathname.endsWith('/')
+	? Astro.url.pathname
+	: `${Astro.url.pathname}/`;
+const canonicalUrl = canonical
+	? canonical.endsWith('/')
+		? canonical
+		: `${canonical}/`
+	: `${siteUrl}${pathname}`;
+
+const absoluteOgImage = ogImage.startsWith('http')
+	? ogImage
+	: `${siteUrl}${ogImage.startsWith('/') ? ogImage : `/${ogImage}`}`;
+
+const fullTitle =
+	exactTitle || title.includes(site.nome) ? title : `${title} | ${site.nome}`;
+
+const defaultAreaServed = cidades.map((cidade) => ({
+	'@type': 'City',
+	name: cidade.data.nome,
+}));
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Plumber',
+	name: site.nome,
+	url: site.url,
+	telephone: site.telefoneE164,
+	image: absoluteOgImage,
+	priceRange: '$$',
+	areaServed: areaServed ?? defaultAreaServed,
+	openingHoursSpecification: {
+		'@type': 'OpeningHoursSpecification',
+		dayOfWeek: [
+			'Monday',
+			'Tuesday',
+			'Wednesday',
+			'Thursday',
+			'Friday',
+			'Saturday',
+			'Sunday',
+		],
+		opens: '00:00',
+		closes: '23:59',
+	},
+};
+
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		{noindex ? (
+			<meta name="robots" content="noindex, follow" />
+		) : (
+			<meta name="robots" content="index, follow" />
+		)}
+		<link rel="canonical" href={canonicalUrl} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content={site.nome} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={absoluteOgImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={absoluteOgImage} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+		<link
+			rel="preload"
+			href={fontBoldUrl}
+			as="font"
+			type="font/woff2"
+			crossorigin="anonymous"
+		/>
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+		{
+			extraJsonLdList.map((data) => (
+				<script type="application/ld+json" set:html={JSON.stringify(data)} />
+			))
+		}
+	</head>
+	<body class="min-h-screen flex flex-col">
+		<a
+			href="#conteudo-principal"
+			class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
+		>
+			Ir para o conteúdo
+		</a>
+		<Header />
+		<main id="conteudo-principal" class="flex-1">
+			<slot />
+		</main>
+		<Footer />
+		<WhatsAppFloat />
+	</body>
+</html>

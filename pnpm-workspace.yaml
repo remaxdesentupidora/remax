@@ -1,0 +1,7 @@
+nodeLinker: hoisted
+packageImportMethod: copy
+shamefullyHoist: true
+
+allowBuilds:
+  esbuild: true
+  sharp: true

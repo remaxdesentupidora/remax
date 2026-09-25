@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://desentupidoraremax.com.br/sitemap-index.xml

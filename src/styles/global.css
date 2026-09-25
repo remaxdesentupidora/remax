@@ -1,0 +1,314 @@
+@import "tailwindcss";
+@import "@fontsource/plus-jakarta-sans/latin-400.css";
+@import "@fontsource/plus-jakarta-sans/latin-700.css";
+
+@theme {
+	/* Brand — azul-marinho e vermelho do logo */
+	--color-primary: #082f49;
+	--color-primary-50: #e8eef3;
+	--color-primary-100: #d0dde7;
+	--color-primary-200: #a1bbcf;
+	--color-primary-700: #062538;
+	--color-primary-800: #041c2b;
+	--color-primary-900: #03141f;
+
+	--color-accent: #e02932;
+	--color-accent-hover: #c4222a;
+
+	--color-whatsapp: #25d366;
+	--color-whatsapp-hover: #1da851;
+
+	--color-bg: #ffffff;
+	--color-text: #0f172a; /* slate-900 */
+
+	--color-slate-50: #f8fafc;
+	--color-slate-100: #f1f5f9;
+	--color-slate-200: #e2e8f0;
+	--color-slate-300: #cbd5e1;
+	--color-slate-400: #94a3b8;
+	--color-slate-500: #64748b;
+	--color-slate-600: #475569;
+	--color-slate-700: #334155;
+	--color-slate-800: #1e293b;
+	--color-slate-900: #0f172a;
+
+	/* Typography */
+	--font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+	--text-h1: clamp(1.875rem, 1.4rem + 2.2vw, 3rem);
+	--text-h2: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+	--text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+	--text-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+	--text-sm: clamp(0.875rem, 0.85rem + 0.15vw, 0.9375rem);
+
+	/* Spacing scale (fluid-aware base) */
+	--spacing-section: clamp(3rem, 2rem + 4vw, 6rem);
+	--spacing-block: clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem);
+	--spacing-stack: clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+
+	/* Radius & shadow */
+	--radius-sm: 0.375rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 0.75rem;
+	--shadow-soft: 0 4px 24px rgb(15 23 42 / 0.08);
+
+	/* Container */
+	--container-max: 72rem;
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		font-family: var(--font-sans);
+		font-size: var(--text-body);
+		line-height: 1.6;
+		color: var(--color-text);
+		background-color: var(--color-bg);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	h1 {
+		font-size: var(--text-h1);
+		font-weight: 700;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+	}
+
+	h2 {
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.2;
+		letter-spacing: -0.015em;
+	}
+
+	h3 {
+		font-size: var(--text-h3);
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	a:focus-visible,
+	button:focus-visible,
+	summary:focus-visible,
+	input:focus-visible,
+	label:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 3px;
+	}
+}
+
+@layer components {
+	.container-site {
+		width: 100%;
+		max-width: var(--container-max);
+		margin-inline: auto;
+		padding-inline: clamp(1rem, 0.6rem + 2vw, 1.5rem);
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		min-height: 2.75rem;
+		padding: 0.625rem 1.25rem;
+		border-radius: var(--radius-md);
+		font-weight: 700;
+		font-size: var(--text-sm);
+		line-height: 1.2;
+		text-decoration: none;
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease,
+			border-color 0.15s ease;
+	}
+
+	/* Primary #082F49 + branco — AA */
+	.btn-primary {
+		background-color: var(--color-primary);
+		color: #ffffff;
+	}
+
+	.btn-primary:hover {
+		background-color: var(--color-primary-700);
+		color: #ffffff;
+	}
+
+	/* Accent #E02932 + branco — AA em ≥18px bold (selo/destaque) */
+	.badge-accent {
+		display: inline-flex;
+		align-items: center;
+		background-color: var(--color-accent);
+		color: #ffffff;
+		font-weight: 700;
+		font-size: 1.125rem; /* 18px */
+		line-height: 1.2;
+		padding: 0.35rem 0.75rem;
+		border-radius: var(--radius-sm);
+	}
+
+	/* WhatsApp: exclusivo dos CTAs WhatsApp — branco no verde escuro para AA */
+	.btn-whatsapp {
+		background-color: var(--color-whatsapp-hover);
+		color: #ffffff;
+	}
+
+	.btn-whatsapp:hover {
+		background-color: #178c44;
+		color: #ffffff;
+	}
+
+	.btn-secondary {
+		background-color: transparent;
+		color: var(--color-primary);
+		border: 2px solid var(--color-primary);
+	}
+
+	.btn-secondary:hover {
+		background-color: var(--color-primary-50);
+		color: var(--color-primary-700);
+	}
+
+	.btn-on-primary {
+		background-color: #ffffff;
+		color: var(--color-primary);
+	}
+
+	.btn-on-primary:hover {
+		background-color: var(--color-primary-50);
+		color: var(--color-primary-900);
+	}
+
+	.section-space {
+		padding-block: var(--spacing-section);
+	}
+
+	.chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.4rem 0.85rem;
+		border-radius: var(--radius-md);
+		background-color: var(--color-primary-50);
+		color: var(--color-primary-900);
+		font-size: var(--text-sm);
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.chip-sede {
+		background-color: var(--color-primary);
+		color: #ffffff;
+	}
+
+	.faq-item {
+		border-bottom: 1px solid var(--color-slate-200);
+	}
+
+	.faq-item summary {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block: 1rem;
+		cursor: pointer;
+		font-weight: 700;
+		color: var(--color-slate-900);
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item summary::after {
+		content: "";
+		flex-shrink: 0;
+		width: 0.65rem;
+		height: 0.65rem;
+		margin-top: 0.35rem;
+		border-right: 2px solid var(--color-primary);
+		border-bottom: 2px solid var(--color-primary);
+		transform: rotate(45deg);
+		transition: transform 0.15s ease;
+	}
+
+	.faq-item[open] summary::after {
+		margin-top: 0.55rem;
+		transform: rotate(-135deg);
+	}
+
+	.faq-item .faq-answer {
+		padding-bottom: 1rem;
+		color: var(--color-slate-700);
+	}
+
+	.prose-servico {
+		max-width: 70ch;
+		color: var(--color-slate-700);
+	}
+
+	.prose-servico :where(h2) {
+		margin-top: var(--spacing-block);
+		margin-bottom: var(--spacing-stack);
+		color: var(--color-slate-900);
+	}
+
+	.prose-servico :where(h2:first-child) {
+		margin-top: 0;
+	}
+
+	.prose-servico :where(p) {
+		margin-bottom: 1rem;
+	}
+
+	.prose-servico :where(ul) {
+		margin-bottom: 1rem;
+		padding-left: 1.25rem;
+	}
+
+	.prose-servico :where(li) {
+		margin-bottom: 0.35rem;
+	}
+
+	.prose-servico :where(a) {
+		color: var(--color-primary);
+		font-weight: 700;
+	}
+
+	.steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		counter-reset: atendimento-step;
+		display: grid;
+		gap: var(--spacing-stack);
+	}
+
+	.steps li {
+		counter-increment: atendimento-step;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1rem;
+		align-items: start;
+	}
+
+	.steps li::before {
+		content: counter(atendimento-step);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 9999px;
+		background-color: var(--color-primary);
+		color: #ffffff;
+		font-weight: 700;
+		font-size: 1.125rem;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+}

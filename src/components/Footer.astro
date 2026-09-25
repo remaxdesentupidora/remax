@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { site } from '../config/site';
+import logo from '../assets/images/logo-desentupidora-remax.png';
+
+const year = new Date().getFullYear();
+const cidades = (await getCollection('cidades')).sort((a, b) => {
+	if (a.data.sede !== b.data.sede) return a.data.sede ? -1 : 1;
+	return a.data.nome.localeCompare(b.data.nome, 'pt-BR');
+});
+
+const footerLinks = [
+	{ href: '/', label: 'Início' },
+	{ href: '/servicos/', label: 'Serviços' },
+	{ href: '/area-de-atendimento/', label: 'Área de Atendimento' },
+	{ href: '/sobre-nos/', label: 'Sobre' },
+	{ href: '/contato/', label: 'Contato' },
+	{ href: '/politica-de-privacidade/', label: 'Política de Privacidade' },
+];
+---
+
+<footer class="mt-auto border-t border-slate-200 bg-slate-50 text-slate-700">
+	<div class="container-site grid gap-8 py-[var(--spacing-block)] md:grid-cols-3">
+		<div>
+			<a href="/" class="inline-flex no-underline" aria-label={site.nome}>
+				<Image
+					src={logo}
+					alt="Desentupidora Remax – Atendimento 24 horas"
+					width={160}
+					height={50}
+					format="webp"
+					quality="mid"
+					class="h-10 w-auto"
+				/>
+			</a>
+			<p class="mt-3">
+				<a
+					href={`tel:${site.telefoneE164}`}
+					class="font-bold text-slate-900 no-underline hover:text-primary"
+				>
+					{site.telefone}
+				</a>
+			</p>
+			{
+				site.atendimento24h && (
+					<p class="mt-1 text-sm text-slate-600">Atendimento 24 horas</p>
+				)
+			}
+		</div>
+
+		<div>
+			<h2 class="text-sm font-bold uppercase tracking-wide text-slate-900">
+				Área de atendimento
+			</h2>
+			<ul class="mt-2 flex list-none flex-wrap gap-x-1 gap-y-1 p-0 text-sm leading-relaxed">
+				{
+					cidades.map((c, index) => (
+						<li class="inline">
+							<a
+								href={`/area-de-atendimento/#${c.id}`}
+								class="font-medium text-slate-700 no-underline hover:text-primary"
+							>
+								{c.data.nome}
+							</a>
+							{index < cidades.length - 1 && (
+								<span class="text-slate-400" aria-hidden="true">
+									{' '}
+									·{' '}
+								</span>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<nav aria-label="Rodapé">
+			<ul class="flex flex-col gap-2">
+				{
+					footerLinks.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="text-sm font-medium text-slate-700 no-underline hover:text-primary"
+							>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
+
+	<div class="border-t border-slate-200">
+		<div class="container-site flex flex-col gap-1 py-4 text-sm text-slate-500 sm:flex-row sm:justify-between">
+			<p>
+				&copy; {year}
+				{site.nome}. Todos os direitos reservados.
+			</p>
+			<p>Desentupimento no Vale do Ribeira e Litoral Sul de SP.</p>
+		</div>
+	</div>
+</footer>
