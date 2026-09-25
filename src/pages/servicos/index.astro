@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import DiferenciaisGrid from '../../components/DiferenciaisGrid.astro';
+import { site } from '../../config/site';
+
+const servicos = (await getCollection('servicos')).sort(
+	(a, b) => a.data.ordem - b.data.ordem,
+);
+
+const siteUrl = site.url.replace(/\/$/, '');
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Início',
+			item: `${siteUrl}/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Serviços',
+			item: `${siteUrl}/servicos/`,
+		},
+	],
+};
+---
+
+<BaseLayout
+	title="Serviços de Desentupimento em Registro SP | Remax"
+	description="Conheça os serviços de desentupimento da Remax em Registro e Vale do Ribeira: vaso sanitário, esgoto e pia. Atendimento 24h e orçamento grátis."
+	exactTitle={true}
+	jsonLdExtra={breadcrumbJsonLd}
+>
+	<section class="section-space" aria-labelledby="servicos-h1">
+		<div class="container-site">
+			<Breadcrumb
+				items={[
+					{ label: 'Início', href: '/' },
+					{ label: 'Serviços' },
+				]}
+			/>
+			<h1 id="servicos-h1" class="mt-4 text-slate-900">Nossos serviços</h1>
+			<p class="mt-[var(--spacing-stack)] max-w-3xl text-slate-700">
+				Estamos aqui para ajudar a qualquer momento do dia, com segurança, eficiência e zelo.
+				A Remax é uma desentupidora comercial e residencial que atua em Registro e região com
+				atendimento 24 horas, com técnicos qualificados, prontos para atuar de forma ágil e sem
+				quebradeira ou bagunça.
+			</p>
+
+			<h2 id="escolha-servico" class="mt-[var(--spacing-block)] text-slate-900">
+				Escolha o serviço de que você precisa
+			</h2>
+			<div class="mt-[var(--spacing-stack)] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					servicos.map((servico) => (
+						<ServiceCard
+							title={servico.data.h1}
+							resumo={servico.data.resumo}
+							href={`/servicos/${servico.id}/`}
+						/>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="section-space bg-slate-50" aria-labelledby="diferenciais-servicos">
+		<div class="container-site">
+			<SectionHeading id="diferenciais-servicos" title="Por que escolher a Remax" />
+			<DiferenciaisGrid variant="accent" class="mt-[var(--spacing-block)]" />
+		</div>
+	</section>
+
+	<section class="section-space" aria-labelledby="cta-servicos">
+		<div class="container-site max-w-3xl text-center">
+			<h2 id="cta-servicos" class="text-slate-900">Precisa desentupir agora?</h2>
+			<p class="mt-[var(--spacing-stack)] text-slate-700">
+				Fale com a Desentupidora Remax. Atendimento 24 horas em Registro e região do Vale do
+				Ribeira.
+			</p>
+			<CtaButtons class="mt-6 justify-center" />
+		</div>
+	</section>
+</BaseLayout>

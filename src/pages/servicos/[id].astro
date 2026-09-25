@@ -1,0 +1,221 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import { site } from '../../config/site';
+
+export async function getStaticPaths() {
+	const servicos = await getCollection('servicos');
+	return servicos.map((servico) => ({
+		params: { id: servico.id },
+		props: { servico },
+	}));
+}
+
+const { servico } = Astro.props;
+await render(servico);
+
+const html = servico.rendered?.html ?? '';
+
+function splitAfterNthH2(source: string, n: number): [string, string] {
+	let from = 0;
+	let count = 0;
+	let cut = -1;
+	while (count < n) {
+		const found = source.indexOf('</h2>', from);
+		if (found === -1) return [source, ''];
+		count += 1;
+		cut = found + 5;
+		from = cut;
+	}
+	return [source.slice(0, cut), source.slice(cut)];
+}
+
+const [htmlAntesCta, htmlDepoisCta] = splitAfterNthH2(html, 2);
+
+const cidades = await getCollection('cidades');
+const outrosServicos = (await getCollection('servicos'))
+	.filter((item) => item.id !== servico.id)
+	.sort((a, b) => a.data.ordem - b.data.ordem);
+
+const faqs = servico.data.faq ?? [];
+const siteUrl = site.url.replace(/\/$/, '');
+const pageUrl = `${siteUrl}/servicos/${servico.id}/`;
+
+const serviceJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Service',
+	name: servico.data.h1,
+	serviceType: servico.data.h1,
+	description: servico.data.description,
+	url: pageUrl,
+	provider: {
+		'@type': 'LocalBusiness',
+		name: site.nome,
+		telephone: site.telefoneE164,
+		url: site.url,
+	},
+	areaServed: cidades.map((cidade) => ({
+		'@type': 'City',
+		name: cidade.data.nome,
+	})),
+};
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Início',
+			item: `${siteUrl}/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Serviços',
+			item: `${siteUrl}/servicos/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 3,
+			name: servico.data.h1,
+			item: pageUrl,
+		},
+	],
+};
+
+const faqJsonLd =
+	faqs.length > 0
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'FAQPage',
+				mainEntity: faqs.map((item) => ({
+					'@type': 'Question',
+					name: item.pergunta,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.resposta,
+					},
+				})),
+			}
+		: null;
+
+const jsonLdExtra = [serviceJsonLd, breadcrumbJsonLd, ...(faqJsonLd ? [faqJsonLd] : [])];
+
+const imagem = servico.data.imagem;
+---
+
+<BaseLayout
+	title={servico.data.seoTitle}
+	description={servico.data.description}
+	jsonLdExtra={jsonLdExtra}
+>
+	<article class="section-space">
+		<div class="container-site">
+			<Breadcrumb
+				items={[
+					{ label: 'Início', href: '/' },
+					{ label: 'Serviços', href: '/servicos/' },
+					{ label: servico.data.h1 },
+				]}
+			/>
+
+			<h1 class="mt-4 max-w-[70ch] text-slate-900">{servico.data.h1}</h1>
+			<p class="mt-3 max-w-[70ch] text-slate-600">{servico.data.resumo}</p>
+
+			{
+				imagem && (
+					<div class="mt-[var(--spacing-block)] max-w-3xl">
+						<Image
+							src={imagem}
+							alt={servico.data.h1}
+							width={imagem.width}
+							height={imagem.height}
+							format="webp"
+							quality="mid"
+							loading="lazy"
+							decoding="async"
+							sizes="(max-width: 768px) 100vw, 48rem"
+							class="h-auto w-full object-cover"
+						/>
+					</div>
+				)
+			}
+
+			<div class="prose-servico mt-[var(--spacing-block)]" set:html={htmlAntesCta} />
+
+			{
+				htmlDepoisCta && (
+					<div class="my-[var(--spacing-block)] max-w-[70ch] rounded-md bg-slate-50 p-5">
+						<p class="font-bold text-slate-900">Precisa desse serviço agora?</p>
+						<p class="mt-2 text-slate-700">
+							Fale com a Remax em Registro e região do Vale do Ribeira. Atendimento 24 horas,
+							orçamento grátis e sem taxa de deslocamento.
+						</p>
+						<CtaButtons class="mt-4" />
+					</div>
+				)
+			}
+
+			{
+				htmlDepoisCta ? (
+					<div class="prose-servico" set:html={htmlDepoisCta} />
+				) : null
+			}
+
+			<div class="mt-[var(--spacing-block)] max-w-[70ch] border-t border-slate-200 pt-[var(--spacing-block)]">
+				<p class="font-bold text-slate-900">Fale com a Desentupidora Remax</p>
+				<p class="mt-2 text-slate-700">
+					Atendimento 24 horas em Registro e região do Vale do Ribeira.
+				</p>
+				<CtaButtons class="mt-4" />
+			</div>
+		</div>
+	</article>
+
+	{
+		faqs.length > 0 && (
+			<section class="section-space bg-slate-50" aria-labelledby="faq-servico">
+				<div class="container-site max-w-3xl">
+					<h2 id="faq-servico" class="text-slate-900">
+						Perguntas frequentes
+					</h2>
+					<div class="mt-[var(--spacing-block)]">
+						{faqs.map((item) => (
+							<details class="faq-item">
+								<summary>{item.pergunta}</summary>
+								<p class="faq-answer">{item.resposta}</p>
+							</details>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	{
+		outrosServicos.length > 0 && (
+			<section class="section-space" aria-labelledby="outros-servicos">
+				<div class="container-site">
+					<h2 id="outros-servicos" class="text-slate-900">
+						Outros serviços
+					</h2>
+					<div class="mt-[var(--spacing-block)] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+						{outrosServicos.map((item) => (
+							<ServiceCard
+								title={item.data.h1}
+								resumo={item.data.resumo}
+								href={`/servicos/${item.id}/`}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
+</BaseLayout>
