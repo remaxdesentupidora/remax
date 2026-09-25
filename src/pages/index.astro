@@ -1,0 +1,314 @@
+---
+import { Picture, Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import DiferenciaisGrid from '../components/DiferenciaisGrid.astro';
+import { site } from '../config/site';
+
+import heroImg from '../assets/images/desentupidor-pia.jpg';
+import quemSomosImg from '../assets/images/atendimento-cliente.png';
+import comoFuncionaImg from '../assets/images/chave-encanamento.jpg';
+
+const ordemCidades = [
+	'registro',
+	'cajati',
+	'jacupiranga',
+	'miracatu',
+	'juquia',
+	'ilha-comprida',
+	'iguape',
+	'cananeia',
+] as const;
+
+const cidades = await getCollection('cidades');
+const cidadesOrdenadas = [...cidades].sort(
+	(a, b) => ordemCidades.indexOf(a.id as (typeof ordemCidades)[number]) - ordemCidades.indexOf(b.id as (typeof ordemCidades)[number]),
+);
+const nomesCidades = cidadesOrdenadas.map((c) => c.data.nome);
+const listaCidades =
+	nomesCidades.length > 1
+		? `${nomesCidades.slice(0, -1).join(', ')} e ${nomesCidades.at(-1)}`
+		: (nomesCidades[0] ?? '');
+
+const servicos = (await getCollection('servicos'))
+	.filter((s) => s.data.destaqueHome)
+	.sort((a, b) => a.data.ordem - b.data.ordem);
+
+const faqs = (await getCollection('faq')).sort((a, b) => a.data.ordem - b.data.ordem);
+
+const faqJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((item) => ({
+		'@type': 'Question',
+		name: item.data.pergunta,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.data.resposta,
+		},
+	})),
+};
+---
+
+<BaseLayout
+	title="Desentupidora em Registro SP 24h | Desentupidora Remax"
+	description="Desentupidora 24 horas em Registro e Vale do Ribeira. Vaso sanitário, pia e esgoto com hidrojateamento. Orçamento grátis e sem taxa de deslocamento."
+	jsonLdExtra={faqJsonLd}
+>
+	{/* 1. HERO */}
+	<section class="section-space" aria-labelledby="hero-titulo">
+		<div class="container-site grid items-center gap-8 md:grid-cols-2 md:gap-10">
+			<div>
+				<p class="badge-accent text-[1.125rem]">Atendimento 24 horas</p>
+				<h1 id="hero-titulo" class="mt-4 text-slate-900">
+					Desentupidora em Registro SP
+				</h1>
+				<p class="mt-[var(--spacing-stack)] text-slate-700">
+					Em busca de serviços de desentupimento em Registro? Conte com a Desentupidora
+					Remax, a sua empresa de desentupimento no Vale do Ribeira.
+				</p>
+				<p class="mt-3 text-sm font-bold text-primary">
+					Atendemos {listaCidades}.
+				</p>
+				<CtaButtons
+					class="mt-6"
+					whatsappLabel="Chamar no WhatsApp"
+					phoneLabel={`Ligar ${site.telefone}`}
+				/>
+			</div>
+			<div>
+				<Picture
+					src={heroImg}
+					formats={['avif', 'webp']}
+					width={596}
+					height={330}
+					widths={[400, 596, 800]}
+					sizes="(max-width: 768px) 100vw, 50vw"
+					loading="eager"
+					fetchpriority="high"
+					decoding="async"
+					alt="Técnico desentupindo encanamento de pia"
+					class="h-auto w-full object-cover"
+					quality="mid"
+				/>
+			</div>
+		</div>
+	</section>
+
+	{/* 2. POR QUE NOS ESCOLHER */}
+	<section class="section-space bg-slate-50" aria-labelledby="por-que-titulo">
+		<div class="container-site">
+			<SectionHeading id="por-que-titulo" title="Por que nos escolher?" />
+			<p class="mt-[var(--spacing-stack)] max-w-3xl text-slate-700">
+				Além da nossa experiência, nosso compromisso é superar suas expectativas a cada
+				serviço. Para isso, nossa equipe é formada por profissionais capacitados e
+				utilizamos equipamentos modernos.
+			</p>
+			<div class="mt-[var(--spacing-block)] grid gap-6 md:grid-cols-2">
+				<article class="border-l-4 border-accent bg-bg p-5 shadow-[var(--shadow-soft)]">
+					<h3 class="text-slate-900">Desentupidora 24 horas em Registro</h3>
+					<p class="mt-3 text-slate-700">
+						Não importa o problema que você tenha em casa, ou a hora em que ele
+						apareça: você pode contar com a Remax.
+					</p>
+				</article>
+				<article class="border-l-4 border-accent bg-bg p-5 shadow-[var(--shadow-soft)]">
+					<h3 class="text-slate-900">Desentupidora de bairro em Registro</h3>
+					<p class="mt-3 text-slate-700">
+						Não importa em qual bairro de Registro você mora: a Remax atende em todos, a
+						qualquer hora e dia da semana.
+					</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	{/* 3. QUEM SOMOS */}
+	<section id="sobre" class="section-space" aria-labelledby="quem-somos-titulo">
+		<div class="container-site grid items-center gap-8 md:grid-cols-2 md:gap-10">
+			<div>
+				<Image
+					src={quemSomosImg}
+					alt="Técnico da Desentupidora Remax atendendo cliente"
+					width={600}
+					height={600}
+					format="webp"
+					quality="mid"
+					loading="lazy"
+					decoding="async"
+					sizes="(max-width: 768px) 100vw, 50vw"
+					class="h-auto w-full object-cover"
+				/>
+			</div>
+			<div>
+				<SectionHeading id="quem-somos-titulo" title="Quem somos" />
+				<p class="mt-[var(--spacing-stack)] text-slate-700">
+					A Desentupidora Remax oferece uma ampla gama de serviços para manter sistemas de
+					esgoto funcionando bem e sem entupimentos, tanto na manutenção preventiva quanto
+					na solução de problemas já existentes. Com técnicas modernas e equipamentos
+					adequados, resolvemos desde pequenos inconvenientes até grandes emergências.
+				</p>
+				<a
+					href="/sobre-nos/"
+					class="mt-6 inline-flex font-bold text-primary no-underline hover:text-primary-700"
+				>
+					Saiba mais sobre nós
+					<span aria-hidden="true" class="ml-1">→</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	{/* 4. SERVIÇOS */}
+	<section id="servicos" class="section-space bg-slate-50" aria-labelledby="servicos-titulo">
+		<div class="container-site">
+			<SectionHeading id="servicos-titulo" title="Nossos serviços" />
+			<div class="mt-[var(--spacing-block)] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					servicos.map((servico) => (
+						<ServiceCard
+							title={servico.data.h1}
+							resumo={servico.data.resumo}
+							href={`/servicos/${servico.id}/`}
+						/>
+					))
+				}
+			</div>
+			<div class="mt-[var(--spacing-block)]">
+				<a href="/servicos/" class="btn btn-primary">
+					Conheça todos os serviços
+				</a>
+			</div>
+		</div>
+	</section>
+
+	{/* 5. COMO FUNCIONA */}
+	<section class="section-space" aria-labelledby="como-funciona-titulo">
+		<div class="container-site grid items-center gap-8 md:grid-cols-2 md:gap-10">
+			<div>
+				<SectionHeading id="como-funciona-titulo" title="Como nossos serviços funcionam" />
+				<p class="mt-[var(--spacing-stack)] text-slate-700">
+					Problemas de entupimento surgem de forma inesperada e causam transtornos. Por
+					isso, estamos preparados para atender residências, condomínios e estabelecimentos
+					comerciais.
+				</p>
+				<p class="mt-4 text-slate-700">
+					Seja um ralo que não escoa, uma pia obstruída, um vaso sanitário com problema ou
+					questões mais complexas na rede de esgoto, estamos prontos para resolver.
+				</p>
+				<p class="mt-4 text-slate-700">
+					Basta entrar em contato e solicitar um orçamento gratuito.
+				</p>
+			</div>
+			<div>
+				<Image
+					src={comoFuncionaImg}
+					alt="Chave de encanador em tubulação"
+					width={850}
+					height={500}
+					format="webp"
+					quality="mid"
+					loading="lazy"
+					decoding="async"
+					sizes="(max-width: 768px) 100vw, 50vw"
+					class="h-auto w-full object-cover"
+				/>
+			</div>
+		</div>
+	</section>
+
+	{/* 6. SEM TAXA DE DESLOCAMENTO */}
+	<section class="section-space bg-primary text-white" aria-labelledby="deslocamento-titulo">
+		<div class="container-site max-w-3xl">
+			<h2 id="deslocamento-titulo" class="text-white">
+				Existe custo de deslocamento?
+			</h2>
+			<p class="mt-[var(--spacing-stack)] text-primary-100">
+				Aqui na Desentupidora Remax não cobramos taxa de deslocamento. Do momento em que
+				nossos técnicos saem até chegarem à sua casa, não há nenhum custo adicional —
+				serviço transparente e sem surpresas.
+			</p>
+			<CtaButtons class="mt-6" showPhone={false} whatsappLabel="Chamar no WhatsApp" />
+		</div>
+	</section>
+
+	{/* 7. NOSSO DIFERENCIAL */}
+	<section class="section-space" aria-labelledby="diferencial-titulo">
+		<div class="container-site">
+			<SectionHeading id="diferencial-titulo" title="Nosso diferencial" />
+			<DiferenciaisGrid class="mt-[var(--spacing-block)]" />
+		</div>
+	</section>
+
+	{/* 8. ÁREA DE ATENDIMENTO */}
+	<section
+		id="area-de-atendimento"
+		class="section-space bg-slate-50"
+		aria-labelledby="cidades-titulo"
+	>
+		<div class="container-site">
+			<SectionHeading id="cidades-titulo" title="Cidades atendidas" />
+			<ul class="mt-[var(--spacing-block)] flex list-none flex-wrap gap-2 p-0">
+				{
+					cidadesOrdenadas.map((cidade) => (
+						<li>
+							<a
+								href={`/area-de-atendimento/#${cidade.id}`}
+								class:list={['chip', 'no-underline', cidade.data.sede && 'chip-sede']}
+							>
+								{cidade.data.nome}
+								{cidade.data.sede && (
+									<span class="text-xs font-bold opacity-90">· sede</span>
+								)}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<a
+				href="/area-de-atendimento/"
+				class="mt-6 inline-flex font-bold text-primary no-underline hover:text-primary-700"
+			>
+				Ver área de atendimento
+				<span aria-hidden="true" class="ml-1">→</span>
+			</a>
+		</div>
+	</section>
+
+	{/* 9. FAQ */}
+	<section class="section-space" aria-labelledby="faq-titulo">
+		<div class="container-site max-w-3xl">
+			<SectionHeading id="faq-titulo" title="Perguntas frequentes" />
+			<div class="mt-[var(--spacing-block)]">
+				{
+					faqs.map((item) => (
+						<details class="faq-item">
+							<summary>{item.data.pergunta}</summary>
+							<p class="faq-answer">{item.data.resposta}</p>
+						</details>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	{/* 10. CTA FINAL */}
+	<section id="contato" class="section-space bg-primary-50" aria-labelledby="cta-final-titulo">
+		<div class="container-site max-w-3xl text-center">
+			<h2 id="cta-final-titulo" class="text-slate-900">
+				Entupiu? Fale com a gente agora
+			</h2>
+			<p class="mt-[var(--spacing-stack)] text-slate-700">
+				Temos pessoas prontas para atender 24 horas, fins de semana e feriados.
+			</p>
+			<CtaButtons
+				class="mt-6 justify-center"
+				whatsappLabel="Chamar no WhatsApp"
+				phoneLabel={`Ligar ${site.telefone}`}
+			/>
+		</div>
+	</section>
+</BaseLayout>
