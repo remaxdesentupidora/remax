@@ -1,0 +1,505 @@
+{
+	"trailingSlash": true,
+	"redirects": [
+		{
+			"source": "/4125-2{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/blog{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-leste{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/em-perus{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/em-pirituba{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/em-santana{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/na-casa-verde{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/na-freguesia-do-o{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/na-vila-guilherme{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/na-vila-maria{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/na-vila-medeiros{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/no-jacana{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/no-jaragua{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/no-limao{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-norte/no-mandaqui{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/em-perdizes{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/em-pinheiros{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/na-lapa{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/na-raposo-tavares{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/na-vila-leopoldina{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/na-vila-sonia{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/no-itaim-bibi{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/no-jaguara{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/no-jaguare{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/no-jardim-paulista{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/no-morumbi{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-oeste/no-rio-pequeno{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-na-zona-sul{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/na-bela-vista{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/na-consolacao{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/na-liberdade{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/na-republica{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/na-santa-cecilia{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/na-se{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/no-bom-retiro{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/no-bras{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/no-cambuci{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-no-centro/no-pari{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-registro{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-registro-servico-24h-especializado{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-registro-sp{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/desentupidora-remax-registro-sp-solucoes-definitivas-24-horas-atendimento-imediato-13-99620-2540-whatsapp-24h-problemas-com-entupimentos-desabilitam-agilidade-precisao-e-alguem-que-real{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/em-ermelino-matarazzo{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/em-guaianases{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/em-itaquera{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/em-moema{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/home{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/na-anhanguera{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-barra-funda{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-brasilandia{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-cachoeirinha{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-cidade-dutra{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-cidade-lider{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-pedreira{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-penha{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-ponte-rasa{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-saude{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-vila-andrade{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-vila-formosa{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-vila-mariana{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-vila-matilde{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/na-vila-prudente{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-aricanduva{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-artur-alvim{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-belem{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-butanta{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-campo-belo{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-campo-grande{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-campo-limpo{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-cangaiba{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-capao-redondo{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-carrao{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-cursino{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-grajau{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-iguatemi{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-ipiranga{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-itaim-paulista{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-jabaquara{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-jardim-angela{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-jardim-helena{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-jardim-sao-luis{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-jose-bonifacio{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-lajeado{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-marsilac{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-pq-sao-lucas{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-sacoma{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-sao-rafael{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-socorro{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-tatuape{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-tremembe{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/no-tucuruvi{/}?",
+			"destination": "/area-de-atendimento/",
+			"permanent": true
+		},
+		{
+			"source": "/sitemap_index.xml",
+			"destination": "/sitemap-index.xml",
+			"permanent": true
+		},
+		{
+			"source": "/page-sitemap.xml",
+			"destination": "/sitemap-index.xml",
+			"permanent": true
+		},
+		{
+			"source": "/post-sitemap.xml",
+			"destination": "/sitemap-index.xml",
+			"permanent": true
+		},
+		{
+			"source": "/feed{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/wp-admin{/}?",
+			"destination": "/",
+			"permanent": true
+		},
+		{
+			"source": "/wp-login.php",
+			"destination": "/",
+			"permanent": true
+		}
+	]
+}
