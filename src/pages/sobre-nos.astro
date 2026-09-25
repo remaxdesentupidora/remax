@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import DiferenciaisGrid from '../components/DiferenciaisGrid.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import { site } from '../config/site';
+import atendimentoImg from '../assets/images/atendimento-cliente.png';
+
+const siteUrl = site.url.replace(/\/$/, '');
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Início',
+			item: `${siteUrl}/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Sobre nós',
+			item: `${siteUrl}/sobre-nos/`,
+		},
+	],
+};
+
+const showAnos = site.anosNoMercado != null;
+const showClientes = site.clientesAtendidos != null;
+---
+
+<BaseLayout
+	title="Sobre a Desentupidora Remax | Desentupidora em Registro SP"
+	description="Conheça a Desentupidora Remax: desentupimento 24 horas em Registro e Vale do Ribeira, com técnicos qualificados e equipamentos modernos."
+	jsonLdExtra={breadcrumbJsonLd}
+>
+	<section class="section-space" aria-labelledby="sobre-h1">
+		<div class="container-site">
+			<Breadcrumb
+				items={[
+					{ label: 'Início', href: '/' },
+					{ label: 'Sobre nós' },
+				]}
+			/>
+			<div class="mt-4 grid items-center gap-8 md:grid-cols-2 md:gap-10">
+				<div>
+					<h1 id="sobre-h1" class="text-slate-900">Sobre a Desentupidora Remax</h1>
+					<p class="mt-3 text-lg font-bold text-primary">
+						Serviços rápidos e com segurança. Sempre prontos para qualquer emergência.
+					</p>
+					<p class="mt-[var(--spacing-stack)] text-slate-700">
+						Somos uma empresa do ramo de desentupimento que atende Registro e a região do
+						Vale do Ribeira. Nossos clientes sabem que, sempre que precisam, basta nos
+						chamar para que nossa equipe esteja pronta para agir e resolver qualquer tipo
+						de entupimento.
+					</p>
+					<p class="mt-4 text-slate-700">
+						Trabalhamos com equipamentos modernos e buscamos melhorar constantemente nossos
+						serviços. Por isso, ao solicitar um atendimento, você pode ter certeza de que
+						será atendido por profissionais treinados e qualificados.
+					</p>
+					<p class="mt-4 text-slate-700">
+						Operamos em Registro e em toda a região. Seja qual for o seu bairro, atendemos o
+						mais rápido possível.
+					</p>
+				</div>
+				<div>
+					<Image
+						src={atendimentoImg}
+						alt="Técnico da Desentupidora Remax atendendo cliente"
+						width={600}
+						height={600}
+						format="webp"
+						quality="mid"
+						loading="lazy"
+						decoding="async"
+						sizes="(max-width: 768px) 100vw, 50vw"
+						class="h-auto w-full object-cover"
+					/>
+				</div>
+			</div>
+
+			{
+				(showAnos || showClientes) && (
+					<ul class="mt-[var(--spacing-block)] flex list-none flex-wrap gap-6 p-0">
+						{showAnos && (
+							<li class="bg-primary-50 px-5 py-4">
+								<p class="text-3xl font-bold text-primary">{site.anosNoMercado}</p>
+								<p class="text-sm font-bold text-slate-700">Anos no mercado</p>
+							</li>
+						)}
+						{showClientes && (
+							<li class="bg-primary-50 px-5 py-4">
+								<p class="text-3xl font-bold text-primary">{site.clientesAtendidos}</p>
+								<p class="text-sm font-bold text-slate-700">Clientes atendidos</p>
+							</li>
+						)}
+					</ul>
+				)
+			}
+		</div>
+	</section>
+
+	<section class="section-space bg-slate-50" aria-labelledby="diferenciais-sobre">
+		<div class="container-site">
+			<SectionHeading id="diferenciais-sobre" title="Nosso diferencial" />
+			<DiferenciaisGrid class="mt-[var(--spacing-block)]" />
+			<div class="mt-[var(--spacing-block)] flex flex-col gap-3 sm:flex-row">
+				<a href="/servicos/" class="btn btn-primary">Conheça nossos serviços</a>
+				<a href="/area-de-atendimento/" class="btn btn-secondary">
+					Área de atendimento
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-space" aria-labelledby="cta-sobre">
+		<div class="container-site max-w-3xl text-center">
+			<h2 id="cta-sobre" class="text-slate-900">Precisa de desentupimento agora?</h2>
+			<p class="mt-[var(--spacing-stack)] text-slate-700">
+				Fale com a Desentupidora Remax. Atendimento 24 horas em Registro e região do Vale do
+				Ribeira.
+			</p>
+			<CtaButtons class="mt-6 justify-center" />
+		</div>
+	</section>
+</BaseLayout>

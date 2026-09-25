@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { site } from '../config/site';
+
+const atualizadoEm = new Date().toLocaleDateString('pt-BR', {
+	day: '2-digit',
+	month: 'long',
+	year: 'numeric',
+	timeZone: 'America/Sao_Paulo',
+});
+
+const siteUrl = site.url.replace(/\/$/, '');
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Início',
+			item: `${siteUrl}/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Política de Privacidade',
+			item: `${siteUrl}/politica-de-privacidade/`,
+		},
+	],
+};
+---
+
+<BaseLayout
+	title="Política de Privacidade"
+	description="Política de Privacidade da Desentupidora Remax: informações sobre dados, cookies e canais de contato."
+	noindex={true}
+	jsonLdExtra={breadcrumbJsonLd}
+>
+	<section class="section-space" aria-labelledby="privacidade-h1">
+		<div class="container-site max-w-3xl">
+			<Breadcrumb
+				items={[
+					{ label: 'Início', href: '/' },
+					{ label: 'Política de Privacidade' },
+				]}
+			/>
+			<h1 id="privacidade-h1" class="mt-4 text-slate-900">Política de Privacidade</h1>
+			<p class="mt-2 text-sm text-slate-500">Atualizada em {atualizadoEm}.</p>
+
+			<div class="prose-servico mt-[var(--spacing-block)]">
+				<p>
+					Esta Política de Privacidade descreve, de forma simples, como a{' '}
+					<strong>{site.nome}</strong> trata informações no site{' '}
+					{site.url.replace(/^https?:\/\//, '')}, em conformidade com a Lei Geral de Proteção
+					de Dados (LGPD — Lei nº 13.709/2018).
+				</p>
+
+				<h2>1. O que este site faz (e o que não faz)</h2>
+				<p>
+					Este site é institucional e informativo. <strong>Não há cadastro de usuários</strong>{' '}
+					nem formulário de contato no site. Você pode nos acionar pelos botões de WhatsApp e
+					telefone disponibilizados nas páginas.
+				</p>
+
+				<h2>2. Cookies e ferramentas de análise</h2>
+				<p>
+					<strong>No momento, este site não utiliza cookies de rastreamento</strong> nem
+					ferramentas de análise (como Google Analytics ou pixels de redes sociais). Se isso
+					mudar no futuro, esta política será atualizada antes da ativação de qualquer
+					tecnologia de medição.
+				</p>
+
+				<h2>3. Contato por WhatsApp ou telefone</h2>
+				<p>
+					Ao clicar em um link de WhatsApp ou telefone, a conversa ou a chamada passa a ocorrer
+					nos aplicativos ou serviços da Meta (WhatsApp) ou da sua operadora de telefonia. Nessas
+					situações, aplicam-se também as políticas de privacidade e os termos desses
+					prestadores, sobre os quais a {site.nome} não tem controle.
+				</p>
+
+				<h2>4. Dados informados durante o atendimento</h2>
+				<p>
+					Se você nos informar dados pessoais durante o atendimento (por exemplo, nome, telefone,
+					endereço do serviço ou detalhes do problema), esses dados serão usados{' '}
+					<strong>apenas para prestar o serviço solicitado</strong>, comunicar o andamento e
+					cumprir obrigações legais aplicáveis. Não vendemos nem compartilhamos esses dados para
+					fins de marketing de terceiros.
+				</p>
+
+				<h2>5. Seus direitos</h2>
+				<p>
+					Nos termos da LGPD, você pode solicitar informações sobre o tratamento dos seus dados,
+					correção, eliminação (quando cabível) e outras solicitações previstas em lei. Para
+					exercer esses direitos ou tirar dúvidas sobre esta política, use os canais abaixo.
+				</p>
+
+				<h2>6. Canal para dúvidas</h2>
+				<p>
+					Entre em contato com a {site.nome} pelo telefone{' '}
+					<a href={`tel:${site.telefoneE164}`}>{site.telefone}</a> ou pelo{' '}
+					<a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>.
+				</p>
+
+				<h2>7. Alterações</h2>
+				<p>
+					Podemos atualizar esta Política de Privacidade quando houver mudança relevante no site
+					ou na forma de tratamento de dados. A data de atualização no topo desta página indica a
+					versão vigente gerada neste build.
+				</p>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

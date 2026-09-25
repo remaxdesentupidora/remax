@@ -1,0 +1,176 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import { site } from '../config/site';
+
+const cidades = (await getCollection('cidades')).sort((a, b) => {
+	if (a.data.sede !== b.data.sede) return a.data.sede ? -1 : 1;
+	return a.data.nome.localeCompare(b.data.nome, 'pt-BR');
+});
+
+const siteUrl = site.url.replace(/\/$/, '');
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Início',
+			item: `${siteUrl}/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Contato',
+			item: `${siteUrl}/contato/`,
+		},
+	],
+};
+
+const contactJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'ContactPage',
+	name: `Contato | ${site.nome}`,
+	url: `${siteUrl}/contato/`,
+	mainEntity: {
+		'@type': 'Organization',
+		name: site.nome,
+		url: site.url,
+		contactPoint: {
+			'@type': 'ContactPoint',
+			telephone: site.telefoneE164,
+			contactType: 'customer service',
+			areaServed: 'BR-SP',
+			availableLanguage: 'pt-BR',
+			hoursAvailable: {
+				'@type': 'OpeningHoursSpecification',
+				dayOfWeek: [
+					'Monday',
+					'Tuesday',
+					'Wednesday',
+					'Thursday',
+					'Friday',
+					'Saturday',
+					'Sunday',
+				],
+				opens: '00:00',
+				closes: '23:59',
+			},
+		},
+	},
+};
+---
+
+<BaseLayout
+	title="Contato | Desentupidora Remax 24h em Registro SP"
+	description="Fale com a Desentupidora Remax pelo WhatsApp ou telefone (13) 99620-2540. Atendimento 24 horas, fins de semana e feriados."
+	jsonLdExtra={[breadcrumbJsonLd, contactJsonLd]}
+>
+	<section class="section-space" aria-labelledby="contato-h1">
+		<div class="container-site">
+			<Breadcrumb
+				items={[
+					{ label: 'Início', href: '/' },
+					{ label: 'Contato' },
+				]}
+			/>
+			<h1 id="contato-h1" class="mt-4 text-slate-900">Fale conosco</h1>
+			<p class="mt-[var(--spacing-stack)] max-w-3xl text-slate-700">
+				Nossa equipe está disponível 24 horas por dia, inclusive fins de semana e feriados,
+				pronta para atender a qualquer momento.
+			</p>
+
+			<div class="mt-[var(--spacing-block)] grid gap-6 md:grid-cols-2">
+				<a
+					href={site.whatsappUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex flex-col gap-3 border-t-4 border-whatsapp-hover bg-slate-50 p-6 text-inherit no-underline shadow-[var(--shadow-soft)] transition-colors hover:bg-primary-50"
+					aria-label="Chamar a Desentupidora Remax no WhatsApp"
+				>
+					<span
+						class="inline-flex h-12 w-12 items-center justify-center rounded-md bg-whatsapp-hover text-white"
+						aria-hidden="true"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							class="h-7 w-7"
+						>
+							<path
+								d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+							></path>
+						</svg>
+					</span>
+					<span class="text-xl font-bold text-slate-900">WhatsApp</span>
+					<span class="text-slate-700">Chame agora e solicite um orçamento gratuito.</span>
+				</a>
+
+				<a
+					href={`tel:${site.telefoneE164}`}
+					class="flex flex-col gap-3 border-t-4 border-primary bg-slate-50 p-6 text-inherit no-underline shadow-[var(--shadow-soft)] transition-colors hover:bg-primary-50"
+					aria-label={`Ligar para ${site.telefone}`}
+				>
+					<span
+						class="inline-flex h-12 w-12 items-center justify-center rounded-md bg-primary text-white"
+						aria-hidden="true"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							class="h-7 w-7"
+						>
+							<path
+								d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.6a16 16 0 006.3 6.3l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0122 16.9z"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</span>
+					<span class="text-xl font-bold text-slate-900">Telefone</span>
+					<span class="text-lg font-bold text-primary">{site.telefone}</span>
+				</a>
+			</div>
+
+			<div class="mt-[var(--spacing-block)] grid gap-6 md:grid-cols-2">
+				<div class="bg-primary-50 p-5">
+					<h2 class="text-lg text-slate-900">Horário</h2>
+					<p class="mt-2 text-slate-700">24 horas, todos os dias, inclusive feriados.</p>
+				</div>
+				<div class="bg-primary-50 p-5">
+					<h2 class="text-lg text-slate-900">Cidades atendidas</h2>
+					<ul class="mt-3 flex list-none flex-wrap gap-2 p-0">
+						{
+							cidades.map((cidade) => (
+								<li>
+									<a
+										href={`/area-de-atendimento/#${cidade.id}`}
+										class:list={[
+											'chip',
+											'no-underline',
+											cidade.data.sede && 'chip-sede',
+										]}
+									>
+										{cidade.data.nome}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+
+			<div class="mt-[var(--spacing-block)]">
+				<CtaButtons />
+			</div>
+		</div>
+	</section>
+</BaseLayout>
