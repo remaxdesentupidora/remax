@@ -1,0 +1,210 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import { site, whatsappCidade } from '../config/site';
+
+const cidades = (await getCollection('cidades')).sort((a, b) => {
+	if (a.data.sede !== b.data.sede) return a.data.sede ? -1 : 1;
+	return a.data.nome.localeCompare(b.data.nome, 'pt-BR');
+});
+
+const servicos = (await getCollection('servicos')).sort(
+	(a, b) => a.data.ordem - b.data.ordem,
+);
+
+const faqIds = new Set(['cidades-atendidas', 'atendimento-24h', 'taxa-deslocamento']);
+const faqs = (await getCollection('faq'))
+	.filter((item) => faqIds.has(item.id))
+	.sort((a, b) => a.data.ordem - b.data.ordem);
+
+const siteUrl = site.url.replace(/\/$/, '');
+
+const areaServed = cidades.map((cidade) => ({
+	'@type': 'City',
+	name: cidade.data.nome,
+	containedInPlace: {
+		'@type': 'State',
+		name: 'São Paulo',
+	},
+}));
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{
+			'@type': 'ListItem',
+			position: 1,
+			name: 'Início',
+			item: `${siteUrl}/`,
+		},
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: 'Área de atendimento',
+			item: `${siteUrl}/area-de-atendimento/`,
+		},
+	],
+};
+
+const faqJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((item) => ({
+		'@type': 'Question',
+		name: item.data.pergunta,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: item.data.resposta,
+		},
+	})),
+};
+
+const passos = [
+	{
+		titulo: 'Entre em contato',
+		texto: `Chame no WhatsApp ou ligue para ${site.telefone}, a qualquer hora.`,
+	},
+	{
+		titulo: 'Avaliação e orçamento grátis',
+		texto: 'Um técnico avalia o problema no local e informa o valor, sem custo.',
+	},
+	{
+		titulo: 'Serviço executado com sua aprovação',
+		texto: 'O desentupimento só é feito depois que você aprovar o orçamento.',
+	},
+];
+---
+
+<BaseLayout
+	title="Área de Atendimento: Registro e Vale do Ribeira | Remax"
+	description="Desentupidora 24 horas em Registro, Cajati, Jacupiranga, Miracatu, Juquiá, Ilha Comprida, Iguape e Cananéia. Orçamento grátis."
+	exactTitle={true}
+	areaServed={areaServed}
+	jsonLdExtra={[breadcrumbJsonLd, faqJsonLd]}
+>
+	<section class="section-space" aria-labelledby="area-h1">
+		<div class="container-site">
+			<Breadcrumb
+				items={[
+					{ label: 'Início', href: '/' },
+					{ label: 'Área de atendimento' },
+				]}
+			/>
+			<h1 id="area-h1" class="mt-4 max-w-3xl text-slate-900">
+				Área de atendimento: Registro e Vale do Ribeira
+			</h1>
+			<p class="mt-[var(--spacing-stack)] max-w-3xl text-slate-700">
+				A Desentupidora Remax atende Registro e as cidades vizinhas do Vale do Ribeira. Seja
+				qual for o seu bairro, atendemos o mais rápido possível — 24 horas, inclusive fins de
+				semana e feriados.
+			</p>
+		</div>
+	</section>
+
+	<section class="section-space bg-slate-50" aria-labelledby="cidades-atendidas-titulo">
+		<div class="container-site">
+			<SectionHeading id="cidades-atendidas-titulo" title="Cidades atendidas" />
+			<ul class="mt-[var(--spacing-block)] grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					cidades.map((cidade) => (
+						<li
+							id={cidade.id}
+							class="scroll-mt-24 border-t-4 border-primary bg-bg p-5 shadow-[var(--shadow-soft)]"
+						>
+							<div class="flex flex-wrap items-center gap-2">
+								<h3 class="text-slate-900">
+									{cidade.data.nome} {cidade.data.uf}
+								</h3>
+								{cidade.data.sede && (
+									<span class="badge-accent px-2 py-1 text-[1.125rem]">
+										Base de atendimento
+									</span>
+								)}
+							</div>
+							<a
+								href={whatsappCidade(cidade.data.nome)}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="btn btn-whatsapp mt-4 w-full sm:w-auto"
+								aria-label={`Pedir atendimento em ${cidade.data.nome} pelo WhatsApp`}
+							>
+								Pedir atendimento em {cidade.data.nome}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section-space" aria-labelledby="servicos-area-titulo">
+		<div class="container-site">
+			<SectionHeading
+				id="servicos-area-titulo"
+				title="Serviços disponíveis em todas as cidades"
+			/>
+			<div class="mt-[var(--spacing-block)] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					servicos.map((servico) => (
+						<ServiceCard
+							title={servico.data.h1}
+							resumo={servico.data.resumo}
+							href={`/servicos/${servico.id}/`}
+						/>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="section-space bg-slate-50" aria-labelledby="como-funciona-area">
+		<div class="container-site max-w-3xl">
+			<SectionHeading id="como-funciona-area" title="Como funciona o atendimento" />
+			<ol class="steps mt-[var(--spacing-block)]">
+				{
+					passos.map((passo) => (
+						<li>
+							<div>
+								<h3 class="text-slate-900">{passo.titulo}</h3>
+								<p class="mt-1 text-slate-700">{passo.texto}</p>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section-space" aria-labelledby="faq-area-titulo">
+		<div class="container-site max-w-3xl">
+			<SectionHeading id="faq-area-titulo" title="Perguntas frequentes" />
+			<div class="mt-[var(--spacing-block)]">
+				{
+					faqs.map((item) => (
+						<details class="faq-item">
+							<summary>{item.data.pergunta}</summary>
+							<p class="faq-answer">{item.data.resposta}</p>
+						</details>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="section-space bg-primary-50" aria-labelledby="cta-area-titulo">
+		<div class="container-site max-w-3xl text-center">
+			<h2 id="cta-area-titulo" class="text-slate-900">
+				Sua cidade não está na lista?
+			</h2>
+			<p class="mt-[var(--spacing-stack)] text-slate-700">
+				Entre em contato mesmo assim: verificamos a disponibilidade para a sua região.
+			</p>
+			<CtaButtons class="mt-6 justify-center" />
+		</div>
+	</section>
+</BaseLayout>
