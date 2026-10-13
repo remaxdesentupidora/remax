@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Desentupidora Remax">
-  <rect width="128" height="128" rx="28" fill="#E02932"/>
-  <text x="64" y="88" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="84" font-weight="700" fill="#FFFFFF">R</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Desentupidora Remax">
+  <rect width="32" height="32" rx="7" fill="#E02932"/>
+  <path fill="#FFFFFF" fill-rule="evenodd" d="M8 6.2h6.4c3.8 0 6.1 1.9 6.1 4.8 0 2.3-1.4 4-3.6 4.6L21.6 25.8h-4.8l-4.2-8.4H11.4V25.8H8V6.2zM11.4 9.1v4.6h2.7c1.6 0 2.5-.8 2.5-2.3s-.9-2.3-2.5-2.3h-2.7z"/>
 </svg>
