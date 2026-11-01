@@ -99,7 +99,10 @@ function routeExists(routes, files, hrefPath) {
 }
 
 const files = walk(DIST);
-const htmlFiles = files.filter((f) => f.endsWith('.html')).sort();
+// Ignora arquivos de verificação do Google Search Console (googleXXXX.html)
+const htmlFiles = files
+	.filter((f) => f.endsWith('.html') && !/\/google[0-9a-f]+\.html$/i.test(f.replace(/\\/g, '/')))
+	.sort();
 const routes = collectDistRoutes(files);
 const errors = [];
 const titles = new Map();
