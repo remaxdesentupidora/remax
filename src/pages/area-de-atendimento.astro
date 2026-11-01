@@ -126,6 +126,16 @@ const passos = [
 									</span>
 								)}
 							</div>
+							{cidade.data.bairros?.length ? (
+								<p class="mt-3">
+									<a
+										href={`/desentupidora-${cidade.id}/`}
+										class="font-bold text-primary no-underline hover:text-primary-700"
+									>
+										Ver bairros atendidos em {cidade.data.nome}
+									</a>
+								</p>
+							) : null}
 							<a
 								href={whatsappCidade(cidade.data.nome)}
 								target="_blank"

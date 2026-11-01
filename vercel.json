@@ -502,11 +502,6 @@
 			"statusCode": 301
 		},
 		{
-			"source": "/desentupidora-ilha-comprida{/}?",
-			"destination": "/area-de-atendimento/#ilha-comprida",
-			"statusCode": 301
-		},
-		{
 			"source": "/desentupidor-registro-sp{/}?",
 			"destination": "/",
 			"statusCode": 301

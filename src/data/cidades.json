@@ -33,7 +33,40 @@
 		"id": "ilha-comprida",
 		"nome": "Ilha Comprida",
 		"uf": "SP",
-		"sede": false
+		"sede": false,
+		"bairros": [
+			"Balneário Adriana",
+			"Balneário Ancarpe",
+			"Balneário Araçá",
+			"Balneário Atlântico",
+			"Balneário Britânia",
+			"Balneário Di Franco",
+			"Balneário Icaraí",
+			"Balneário Iguape",
+			"Balneário Jardim Portugal",
+			"Balneário Kennedy",
+			"Balneário Leão de Iguape",
+			"Balneário Marambaia",
+			"Balneário Maria de Lourdes",
+			"Balneário Marusca (também grafado Marusci)",
+			"Balneário Mar Azul",
+			"Balneário Mar Limpo",
+			"Balneário Monte Carlo",
+			"Balneário Porto Velho",
+			"Balneário Samburá",
+			"Balneário São Januário",
+			"Balneário Sulmar",
+			"Balneário Viareggio",
+			"Boqueirão (Norte e Sul)",
+			"Centro",
+			"City Mar",
+			"Jardim América",
+			"Porto do Ribeira",
+			"Rócio",
+			"Tucum",
+			"Vila Garcês",
+			"Zona Rural"
+		]
 	},
 	{
 		"id": "iguape",
@@ -45,6 +78,20 @@
 		"id": "cananeia",
 		"nome": "Cananéia",
 		"uf": "SP",
-		"sede": false
+		"sede": false,
+		"bairros": [
+			"Acaraú",
+			"Carijó",
+			"Centro",
+			"Iririaia Mirim",
+			"Itapitangui",
+			"Nova Cananéia",
+			"Paraíso dos Pássaros",
+			"Porto Cubatão",
+			"Recanto da Ilha",
+			"Retiro das Caravelas",
+			"Rocio",
+			"Vila Cabana"
+		]
 	}
 ]
