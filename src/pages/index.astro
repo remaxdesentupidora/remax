@@ -256,7 +256,7 @@ const faqJsonLd = {
 					cidadesOrdenadas.map((cidade) => (
 						<li>
 							<a
-								href={`/area-de-atendimento/#${cidade.id}`}
+								href={cidade.data.bairros?.length ? `/desentupidora-${cidade.id}/` : `/area-de-atendimento/#${cidade.id}`}
 								class:list={['chip', 'no-underline', cidade.data.sede && 'chip-sede']}
 							>
 								{cidade.data.nome}

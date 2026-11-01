@@ -30,6 +30,7 @@ const cidades = defineCollection({
 		nome: z.string(),
 		uf: z.string(),
 		sede: z.boolean(),
+		bairros: z.array(z.string()).optional(),
 	}),
 });
 
